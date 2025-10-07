@@ -1,7 +1,9 @@
 .source/plugins/*
+!.source/plugins/dogma-email-sender/
 .source/themes/twenty*
 .source/themes/hello-elementor
 .docker/mysql/data
 .docker/mysql/backup/database.sql
 .source/uploads/*
 .env
+/vendor/*
