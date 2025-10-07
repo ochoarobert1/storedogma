@@ -4,3 +4,4 @@
 .docker/mysql/data
 .docker/mysql/backup/database.sql
 .source/uploads/*
+.env
