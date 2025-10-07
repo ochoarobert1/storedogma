@@ -5,3 +5,4 @@
 .docker/mysql/backup/database.sql
 .source/uploads/*
 .env
+/vendor/*

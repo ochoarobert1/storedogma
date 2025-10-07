@@ -1,0 +1,52 @@
+{
+  "name": "dogma/store-site",
+  "description": "WordPress e-commerce site with WooCommerce and Elementor",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "wpackagist-plugin/woocommerce": "^9.5.1",
+    "wpackagist-plugin/elementor": "^3.26.4",
+    "wpackagist-plugin/advanced-custom-fields": "^6.3.11",
+    "wpackagist-plugin/better-search-replace": "^1.4.7",
+    "wpackagist-plugin/duplicate-post": "^4.5",
+    "wpackagist-plugin/elementskit-lite": "^3.3.2",
+    "wpackagist-plugin/email-log": "^2.4.9",
+    "wpackagist-plugin/insert-headers-and-footers": "^2.1.4",
+    "wpackagist-plugin/mailchimp-for-woocommerce": "^4.3.1",
+    "wpackagist-plugin/mailchimp-for-wp": "^4.9.20",
+    "wpackagist-plugin/manage-notification-emails": "^1.8.6",
+    "wpackagist-plugin/query-monitor": "^3.18.0",
+    "wpackagist-plugin/redirection": "^5.5.0",
+    "wpackagist-plugin/woocommerce-gateway-stripe": "^8.9.0",
+    "wpackagist-plugin/wordpress-importer": "^0.8.3",
+    "wpackagist-plugin/wordpress-seo": "^23.9",
+    "wpackagist-plugin/wp-mail-smtp": "^4.3.0",
+    "wpackagist-theme/hello-elementor": "^3.2.0"
+  },
+  "require-dev": {
+    "wpackagist-plugin/query-monitor": "^3.12"
+  },
+  "extra": {
+    "wordpress-install-dir": "./.source",
+    "installer-paths": {
+      "./.source/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "./.source/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "johnpbloch/wordpress-core-installer": true
+    }
+  }
+}
