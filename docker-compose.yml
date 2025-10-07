@@ -1,0 +1,62 @@
+name: store_dogma-web
+services:
+  web:
+    container_name: wordpress
+    image: wordpress:6.7.2-php8.2-apache
+    depends_on:
+      - db
+    ports:
+      - 1666:80
+    env_file:
+      - .env
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_CACHE', true);
+        define('WP_MEMORY_LIMIT', '256M');
+        define('WP_MAX_MEMORY_LIMIT', '512M');
+        define('WP_SITEURL', 'http://localhost:1666');
+        define('WP_HOME', 'http://localhost:1666');
+    volumes:
+      - ./.source/themes/:/var/www/html/wp-content/themes/
+      - ./.source/plugins/:/var/www/html/wp-content/plugins/
+      - ./.source/uploads/:/var/www/html/wp-content/uploads/
+      - ./.docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    networks:
+      - store_dogma_network
+  db:
+    container_name: database
+    image: mariadb:11.3.2
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - store_dogma_network
+    ports:
+      - 3306:3306
+    volumes:
+      - ./.docker/mysql/data/:/var/lib/mysql/
+      - ./.docker/mysql/backup/:/docker-entrypoint-initdb.d/
+      - ./.docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+  adminer:
+    container_name: adminer
+    image: adminer
+    depends_on:
+      - db
+    networks:
+      - store_dogma_network
+    ports:
+      - 1667:8080
+    environment:
+      UPLOAD_LIMIT: 999M
+networks:
+  store_dogma_network:
+    driver: bridge
